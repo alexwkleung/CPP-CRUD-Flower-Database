@@ -39,6 +39,7 @@ void option1::opt1() {
 
             addEntryStr.clear();
 
+            //call opt1() after cin clear
             option1::opt1();
         } else {
             //write the input to file

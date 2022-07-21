@@ -28,6 +28,7 @@ void selectScr::select() {
 
     std::cin >> this->inputSelectStr;
     
+    //create opt1 object from option1 class 
     option1 opt1;
 
     //convert string to int via std::stoi

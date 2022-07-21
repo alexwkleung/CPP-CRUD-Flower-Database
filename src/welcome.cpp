@@ -31,6 +31,7 @@ void welcomeScr::welcome() {
     //clear cin buffer
     continueInput.clear();
 
+    //create miscW object from miscWelcome struct
     miscWelcome miscW;
 
     miscW.welcomeInvalidStr = "Invalid input.";
