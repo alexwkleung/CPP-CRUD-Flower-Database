@@ -16,7 +16,7 @@ void welcomeScr::welcome() {
     //create selS object from selectScr class
     selectScr selScr;
     
-    //if continueInput == "y", call select() from selS
+    //if continueInput == "y", call select() from selScr
     //else if continueInput == "n", exit the program successfully (0 status)
     if(continueInput == "y") {
         selScr.select();
