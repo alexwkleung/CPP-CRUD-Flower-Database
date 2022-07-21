@@ -16,11 +16,30 @@ void welcomeScr::welcome() {
     //create selS object from selectScr class
     selectScr selScr;
     
-    //if continueInput == "y", call select() from selScr
-    //else if continueInput == "n", exit the program successfully (0 status)
-    if(continueInput == "y") {
+    //assign truthy bool to input that equals "y" or "n"
+    bool y = (continueInput == "y");
+    bool n = (continueInput == "n");
+
+    //if bool y is true, call select() from selScr
+    //else if bool n is true, exit the program successfully (0 status)
+    if(y) {
         selScr.select();
-    } else if(continueInput == "n") {
+    } else if(n) {
         exit(0); 
+    }
+
+    //clear cin buffer
+    continueInput.clear();
+
+    miscWelcome miscW;
+
+    miscW.welcomeInvalidStr = "Invalid input.";
+
+    //if bool y or bool n is false (not "y" or "n" as input)
+    //output "Invalid input." in the character error stream
+    if(y == false || n == false) {
+        std::cerr << '\n' << miscW.welcomeInvalidStr << '\n';
+
+        welcomeScr::welcome();
     }
 }

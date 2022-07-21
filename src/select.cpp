@@ -30,7 +30,10 @@ void selectScr::select() {
     
     option1 opt1;
 
-    if(inputSelectStr == "1") {
+    //convert string to int via std::stoi
+    int inputSelectStrStoi = std::stoi(inputSelectStr);
+
+    if(inputSelectStrStoi == 1) {
         opt1.opt1();    
     }
 }

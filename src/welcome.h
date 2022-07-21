@@ -3,6 +3,10 @@
 
 #include <string>
 
+struct miscWelcome {
+    std::string welcomeInvalidStr{};
+};
+
 class welcomeScr {
     protected:
         std::string welcomeStr{};

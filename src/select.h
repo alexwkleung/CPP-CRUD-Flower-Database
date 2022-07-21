@@ -3,6 +3,12 @@
 
 #include <string>
 
+struct miscSelect {
+    std::string gb{};
+    
+    std::string selectInvalidStr{};
+};
+
 class selectScr {
     private:
         std::string selectTitle{};
@@ -14,6 +20,7 @@ class selectScr {
         std::string searchTheDB{};
         std::string showAllEntries{};
         std::string exitDB{};
+        std::string selectErrorStr{};
 
     protected: 
         std::string breakLine{};
