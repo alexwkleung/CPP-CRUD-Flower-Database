@@ -55,7 +55,7 @@ void option1::opt1() {
             //write the input to file
             db << addEntryStr << '\n';
 
-            //close buffer
+            //close ifstream buffer
             db.close();
 
             std::cout << '\n' << "Added " << addEntryStr << " to the database!" << '\n';
