@@ -9,6 +9,7 @@
 /*
 ** implement:
 
+* a blacklist to prevent certain words being present in the db
 */
 
 void option1::opt1() {
@@ -43,8 +44,10 @@ void option1::opt1() {
             //call opt1() after cin clear
             option1::opt1();
         } else if(!std::binary_search(vecGl.begin(), vecGl.end(), this->addEntryStr)) {
-             if(addEntryStr == "_gb") {
+             if(addEntryStr == miscOpts::goBack) {
                 selectScr selScr;
+
+                addEntryStr.clear();
 
                 selScr.select();
             }

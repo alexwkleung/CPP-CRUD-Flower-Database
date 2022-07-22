@@ -4,7 +4,7 @@
 #include <string>
 
 struct miscSelect {
-    std::string gb{};
+    static inline std::string goBack = "_back";
     
     std::string selectInvalidStr{};
 };
