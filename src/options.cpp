@@ -1,4 +1,5 @@
 #include "options.h"
+#include "select.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -41,7 +42,13 @@ void option1::opt1() {
 
             //call opt1() after cin clear
             option1::opt1();
-        } else {
+        } else if(!std::binary_search(vecGl.begin(), vecGl.end(), this->addEntryStr)) {
+             if(addEntryStr == "_gb") {
+                selectScr selScr;
+
+                selScr.select();
+            }
+            
             //write the input to file
             db << addEntryStr << '\n';
 

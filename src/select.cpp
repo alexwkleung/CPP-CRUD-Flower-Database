@@ -35,6 +35,8 @@ void selectScr::select() {
     int inputSelectStrStoi = std::stoi(inputSelectStr);
 
     if(inputSelectStrStoi == 1) {
+        inputSelectStr.clear();
+
         opt1.opt1();    
     }
 }

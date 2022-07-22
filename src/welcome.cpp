@@ -22,9 +22,9 @@ void welcomeScr::welcome() {
 
     //if bool y is true, call select() from selScr
     //else if bool n is true, exit the program successfully (0 status)
-    if(y) {
+    if(y == true) {
         selScr.select();
-    } else if(n) {
+    } else if(n == true) {
         exit(0); 
     }
 
