@@ -13,7 +13,8 @@
 * a filter for unwanted words being present in the db
 */
 
-void option1::opt1() {
+//1. add a new entry to the database 
+void option::opt1() {
     //vector to hold strings from getline
     std::vector<std::string> vecGl = {};
 
@@ -27,8 +28,8 @@ void option1::opt1() {
     //use getline to read from ifstream and inputGl holds them as strings
     //push strings to the end of the vector
     //sort the vector (for binary search)
-    while(std::getline(ifdb, inputGl)) {
-        vecGl.push_back(inputGl);
+    while(std::getline(ifdb, glStr)) {
+        vecGl.push_back(glStr);
         std::sort(vecGl.begin(), vecGl.end());
     }
     
@@ -43,7 +44,7 @@ void option1::opt1() {
             addEntryStr.clear();
 
             //call opt1() after cin clear
-            option1::opt1();
+            option::opt1();
         } else if(!std::binary_search(vecGl.begin(), vecGl.end(), this->addEntryStr)) {
              if(addEntryStr == miscOptions::goBack) {
                 selectScr selScr;
@@ -65,7 +66,46 @@ void option1::opt1() {
 
             addEntryStr.clear();
 
-            option1::opt1(); 
+            option::opt1(); 
         }
+    }
+}
+
+//2. update an entry in the database
+void option::opt2() {
+    std::ifstream db("src/db.txt");
+    std::ofstream dbTemp("src/db-temp.txt");
+
+    std::cin >> deleteEntryStr;
+
+    while(std::cin >> updateEntryStr) {
+        //credit: 
+        //https://stackoverflow.com/questions/3418231/replace-part-of-a-string-with-another-string
+        //https://stackoverflow.com/questions/42724694/how-to-copy-a-file-into-another-file-but-replace-a-word-with-a-user-entered-word
+
+        while(std::getline(db, glStr)) {
+            std::string::size_type szType{};
+
+            while((szType = glStr.find(deleteEntryStr) != std::string::npos)) {
+                glStr.replace(glStr.find(deleteEntryStr), deleteEntryStr.length(), updateEntryStr);
+            }
+
+            //append contents of glStr to dbTemp
+            dbTemp << glStr << '\n';
+        }
+
+        updateEntryStr.clear();
+
+        db.close();
+        dbTemp.close();
+
+        //remove old db.txt with updated db.txt (temp)
+        std::remove("src/db.txt");
+        std::rename("src/db-temp.txt", "src/db.txt");
+        std::remove("src/db-temp.txt");
+
+        std::cout << terminalFormatting::formTypes::clear;
+
+        option::opt2();
     }
 }

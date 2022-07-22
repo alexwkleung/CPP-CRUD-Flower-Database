@@ -29,8 +29,8 @@ void selectScr::select() {
 
     std::cin >> this->inputSelectStr;
     
-    //create opt1 object from option1 class 
-    option1 opt1;
+    //create object opt from option class 
+    option opt;
 
     //convert string to int via std::stoi
     int inputSelectStrStoi = std::stoi(inputSelectStr);
@@ -40,6 +40,14 @@ void selectScr::select() {
         
         std::cout << terminalFormatting::formTypes::clear;
 
-        opt1.opt1();    
+        opt.opt1();    
+    }
+
+    if(inputSelectStrStoi == 2) {
+        inputSelectStr.clear();
+
+        std::cout << terminalFormatting::formTypes::clear;
+
+        opt.opt2();
     }
 }
