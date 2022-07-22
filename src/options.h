@@ -4,9 +4,10 @@
 #include <string>
 
 struct miscOpts {
-    static inline std::string goBack = "_back";
+    public:
+        static inline std::string goBack = "_back";
     
-    std::string optionsInvalidStr{};
+        std::string optionsInvalidStr{};
 };
 
 class option1 {

@@ -4,7 +4,8 @@
 #include <string>
 
 struct miscWelcome {
-    std::string welcomeInvalidStr{};
+    public:
+        std::string welcomeInvalidStr{};
 };
 
 class welcomeScr {

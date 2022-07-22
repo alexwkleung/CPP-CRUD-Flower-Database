@@ -4,9 +4,10 @@
 #include <string>
 
 struct miscSelect {
-    static inline std::string goBack = "_back";
+    public:
+        static inline std::string goBack = "_back";
     
-    std::string selectInvalidStr{};
+        std::string selectInvalidStr{};
 };
 
 class selectScr {
