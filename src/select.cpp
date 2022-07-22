@@ -1,5 +1,6 @@
 #include "select.h"
 #include "options.h"
+#include "terminalformatting.h"
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -36,6 +37,8 @@ void selectScr::select() {
 
     if(inputSelectStrStoi == 1) {
         inputSelectStr.clear();
+        
+        std::cout << terminalFormatting::formTypes::clear;
 
         opt1.opt1();    
     }

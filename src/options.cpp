@@ -1,5 +1,6 @@
 #include "options.h"
 #include "select.h"
+#include "terminalformatting.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -48,6 +49,8 @@ void option1::opt1() {
                 selectScr selScr;
 
                 addEntryStr.clear();
+
+                std::cout << terminalFormatting::formTypes::clear;
 
                 selScr.select();
             }

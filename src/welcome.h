@@ -5,7 +5,7 @@
 
 struct miscWelcome {
     public:
-        static inline std::string welcomeInvalidStr = "Invalid input.";
+        static inline const std::string welcomeInvalidStr = "Invalid input. Try again.";
 };
 
 class welcomeScr {

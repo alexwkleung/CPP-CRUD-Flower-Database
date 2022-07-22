@@ -5,9 +5,9 @@
 
 struct miscOptions {
     public:
-        static inline std::string goBack = "_back";
+        static inline const std::string goBack = "_back";
     
-        static inline std::string optionsInvalidStr = "Invalid input.";
+        static inline const std::string optionsInvalidStr = "Invalid input. Try again.";
 };
 
 class option1 {

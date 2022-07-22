@@ -1,5 +1,6 @@
 #include "welcome.h"
 #include "select.h"
+#include "terminalformatting.h"
 #include <iostream>
 #include <string>
 
@@ -23,6 +24,8 @@ void welcomeScr::welcome() {
     //if bool y is true, call select() from selScr
     //else if bool n is true, exit the program successfully (0 status)
     if(y == true) {
+        std::cout << terminalFormatting::formTypes::clear;
+
         selScr.select();
     } else if(n == true) {
         exit(0); 
@@ -34,6 +37,8 @@ void welcomeScr::welcome() {
     //if bool y or bool n is false (not "y" or "n" as input)
     //output "Invalid input." in the character error stream
     if(y == false || n == false) {
+        std::cout << terminalFormatting::formTypes::clear;
+
         std::cerr << '\n' << miscWelcome::welcomeInvalidStr << '\n';
 
         welcomeScr::welcome();
