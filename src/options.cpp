@@ -44,7 +44,7 @@ void option1::opt1() {
             //call opt1() after cin clear
             option1::opt1();
         } else if(!std::binary_search(vecGl.begin(), vecGl.end(), this->addEntryStr)) {
-             if(addEntryStr == miscOpts::goBack) {
+             if(addEntryStr == miscOptions::goBack) {
                 selectScr selScr;
 
                 addEntryStr.clear();

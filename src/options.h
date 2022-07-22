@@ -3,7 +3,7 @@
 
 #include <string>
 
-struct miscOpts {
+struct miscOptions {
     public:
         static inline std::string goBack = "_back";
     
