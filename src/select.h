@@ -7,7 +7,7 @@ struct miscSelect {
     public:
         static inline std::string goBack = "_back";
     
-        std::string selectInvalidStr{};
+        static inline std::string selectInvalidStr = "Invalid input.";
 };
 
 class selectScr {

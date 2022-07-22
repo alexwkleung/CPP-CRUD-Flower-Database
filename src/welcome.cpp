@@ -31,15 +31,10 @@ void welcomeScr::welcome() {
     //clear cin buffer
     continueInput.clear();
 
-    //create miscW object from miscWelcome struct
-    miscWelcome miscW;
-
-    miscW.welcomeInvalidStr = "Invalid input.";
-
     //if bool y or bool n is false (not "y" or "n" as input)
     //output "Invalid input." in the character error stream
     if(y == false || n == false) {
-        std::cerr << '\n' << miscW.welcomeInvalidStr << '\n';
+        std::cerr << '\n' << miscWelcome::welcomeInvalidStr << '\n';
 
         welcomeScr::welcome();
     }
