@@ -9,7 +9,7 @@
 /*
 ** implement:
 
-* a blacklist to prevent certain words being present in the db
+* a filter for unwanted words being present in the db
 */
 
 void option1::opt1() {
