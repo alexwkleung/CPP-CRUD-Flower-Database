@@ -10,6 +10,8 @@
 /*
 ** implement:
 
+* separate checking mechanism from options
+
 * a filter for unwanted words being present in the db
 */
 
@@ -76,9 +78,19 @@ void option::opt2() {
     std::ifstream db("src/db.txt");
     std::ofstream dbTemp("src/db-temp.txt");
 
-    std::cin >> deleteEntryStr;
+    std::cin >> this->deleteEntryStr;
+    
+    if(deleteEntryStr == miscOptions::goBack) {
+        selectScr selScr;
 
-    while(std::cin >> updateEntryStr) {
+        deleteEntryStr.clear();
+
+        std::cout << terminalFormatting::formTypes::clear;
+
+        selScr.select();
+    } else { 
+        std::cin >> this->updateEntryStr;
+        
         //credit: 
         //https://stackoverflow.com/questions/3418231/replace-part-of-a-string-with-another-string
         //https://stackoverflow.com/questions/42724694/how-to-copy-a-file-into-another-file-but-replace-a-word-with-a-user-entered-word
@@ -86,6 +98,10 @@ void option::opt2() {
         while(std::getline(db, glStr)) {
             std::string::size_type szType{};
 
+            //while condition:
+            //szType is assigned std::string.find() against deleteEntryStr
+            //szType represents the maximum size of deleteEntryStr
+            //and that must not equal std::string::npos (size_type of npos is the largest it can handle)
             while((szType = glStr.find(deleteEntryStr) != std::string::npos)) {
                 glStr.replace(glStr.find(deleteEntryStr), deleteEntryStr.length(), updateEntryStr);
             }
@@ -94,17 +110,19 @@ void option::opt2() {
             dbTemp << glStr << '\n';
         }
 
-        updateEntryStr.clear();
-
         db.close();
         dbTemp.close();
+            
+        std::cout << terminalFormatting::formTypes::clear;
+
+        std::cout << '\n' << "Updated entry " << deleteEntryStr << " from the database!" << '\n';
+            
+        deleteEntryStr.clear();
+        updateEntryStr.clear();
 
         //remove old db.txt with updated db.txt (temp)
         std::remove("src/db.txt");
         std::rename("src/db-temp.txt", "src/db.txt");
-        std::remove("src/db-temp.txt");
-
-        std::cout << terminalFormatting::formTypes::clear;
 
         option::opt2();
     }

@@ -2,6 +2,7 @@ CXX = g++
 CPPFLAGS = -std=c++17 -Wall -Wextra -g 
 VAR = src/main.cpp src/welcome.cpp src/select.cpp src/options.cpp
 OUT = src/a.o
+TEMP = src/db-temp.txt
 
 .PHONY: build
 build:
@@ -9,4 +10,4 @@ build:
 
 .PHONY: clean
 clean:
-	rm ./${OUT}
+	rm ${OUT} || rm ${OUT} && rm ${TEMP} || rm ${TEMP}

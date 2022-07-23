@@ -8,6 +8,8 @@ struct miscOptions {
         static inline const std::string goBack = "_back";
     
         static inline const std::string optionsInvalidStr = "Invalid input. Try again.";
+
+        static inline const std::string optionsNotFoundStr = "String not found. Try again.";
 };
 
 class option {
@@ -34,6 +36,15 @@ class option {
 
         void opt5();
         */
+};
+
+class check : public option {
+    private:
+
+
+    public:
+        void checkOpt1();
+
 };
 
 #endif
