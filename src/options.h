@@ -9,7 +9,7 @@ struct MiscOptions {
     
         static inline const std::string optionsInvalidStr = "Invalid input. Try again.";
 
-        static inline const std::string optionsNotFoundStr = "String not found. Try again.";
+        static inline const std::string optionsNotFoundStr = " not found in the database. Try again.";
 };
 
 class Option {
@@ -21,8 +21,8 @@ class Option {
         std::string glStr{};
 
         //update entry
-        std::string updateEntryStr{};
-        std::string deleteEntryStr{};
+        std::string entryForUpdateStr{};
+        std::string updatedEntryStr{};
 
     public:
         void opt1();

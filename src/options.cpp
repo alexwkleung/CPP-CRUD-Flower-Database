@@ -79,28 +79,39 @@ void CheckGuard::checkOpt2() {
 
     std::vector<std::string> checkUpdateVec = {};
     
-    std::cin >> this->deleteEntryStr;
+    std::cout << "Enter the entry to update: " << entryForUpdateStr;
 
+    //take input for string to be deleted in db
+    std::cin >> this->entryForUpdateStr;
+
+    //use getline to store strings
+    //push into vector and sort
     while(std::getline(ifDb, this->glStr)) {
         checkUpdateVec.push_back(this->glStr);
         std::sort(checkUpdateVec.begin(), checkUpdateVec.end());
     }
 
-    if(this->deleteEntryStr == MiscOptions::goBack) {
+    //checking input ():
+    //check to see if the input contains goback str
+    //then checks input against the sorted vector using binary search
+    //when input is found within the sorted vector, it will update the entry given a second input
+    if(this->entryForUpdateStr == MiscOptions::goBack) {
         SelectScr selScr;
 
-        deleteEntryStr.clear();
+        entryForUpdateStr.clear();
 
         std::cout << terminalformatting::FormTypes::clear;
 
         selScr.select();
-    } else if(this->deleteEntryStr != MiscOptions::goBack) {
-        if(std::binary_search(checkUpdateVec.begin(), checkUpdateVec.end(), this->deleteEntryStr)) {
+    } else if(this->entryForUpdateStr != MiscOptions::goBack) {
+        if(std::binary_search(checkUpdateVec.begin(), checkUpdateVec.end(), this->entryForUpdateStr)) {
             Option::opt2();
-        } else {
+        } else if(!std::binary_search(checkUpdateVec.begin(), checkUpdateVec.end(), this->entryForUpdateStr)) {
             std::cout << terminalformatting::FormTypes::clear << '\n';
 
-            std::cout << MiscOptions::optionsNotFoundStr << '\n';
+            std::cout << entryForUpdateStr << MiscOptions::optionsNotFoundStr << '\n';
+
+            entryForUpdateStr.clear();
 
             CheckGuard::checkOpt2();
         }
@@ -112,16 +123,18 @@ void Option::opt2() {
     std::ifstream db("src/db.txt");
     std::ofstream dbTemp("src/db-temp.txt");
     
-    if(deleteEntryStr == MiscOptions::goBack) {
+    if(entryForUpdateStr == MiscOptions::goBack) {
         SelectScr selScr;
 
-        deleteEntryStr.clear();
+        entryForUpdateStr.clear();
 
         std::cout << terminalformatting::FormTypes::clear;
 
         selScr.select();
-    } else if(deleteEntryStr != MiscOptions::goBack) { 
-        std::cin >> this->updateEntryStr;
+    } else if(entryForUpdateStr != MiscOptions::goBack) { 
+        std::cout << "Enter the updated entry: " << updatedEntryStr;
+
+        std::cin >> this->updatedEntryStr;
         
         //credit: 
         //https://stackoverflow.com/questions/3418231/replace-part-of-a-string-with-another-string
@@ -131,11 +144,11 @@ void Option::opt2() {
             std::string::size_type szType{};
 
             //while condition:
-            //szType is assigned std::string.find() against deleteEntryStr
-            //szType represents the maximum size of deleteEntryStr
+            //szType is assigned std::string.find() against entryForUpdateStr
+            //szType represents the maximum size of entryForUpdateStr
             //and that must not equal std::string::npos (size_type of npos is the largest it can handle)
-            while((szType = glStr.find(deleteEntryStr) != std::string::npos)) {
-                glStr.replace(glStr.find(deleteEntryStr), deleteEntryStr.length(), updateEntryStr);
+            while((szType = glStr.find(entryForUpdateStr) != std::string::npos)) {
+                glStr.replace(glStr.find(entryForUpdateStr), entryForUpdateStr.length(), updatedEntryStr);
             }
 
             //append contents of glStr to dbTemp
@@ -147,10 +160,10 @@ void Option::opt2() {
             
         std::cout << terminalformatting::FormTypes::clear;
 
-        std::cout << '\n' << "Updated entry " << deleteEntryStr << " in the database!" << '\n';
+        std::cout << '\n' << "Updated entry " << entryForUpdateStr << " in the database!" << " (" << entryForUpdateStr << " --> " << updatedEntryStr << ")" << '\n';
             
-        deleteEntryStr.clear();
-        updateEntryStr.clear();
+        entryForUpdateStr.clear();
+        updatedEntryStr.clear();
 
         //remove old db.txt with updated db.txt (temp)
         std::remove("src/db.txt");
