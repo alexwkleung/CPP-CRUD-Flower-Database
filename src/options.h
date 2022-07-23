@@ -3,7 +3,7 @@
 
 #include <string>
 
-struct miscOptions {
+struct MiscOptions {
     public:
         static inline const std::string goBack = "_back";
     
@@ -12,8 +12,8 @@ struct miscOptions {
         static inline const std::string optionsNotFoundStr = "String not found. Try again.";
 };
 
-class option {
-    private:
+class Option {
+    protected:
         //add entry
         std::string addEntryStr{};
         
@@ -38,13 +38,15 @@ class option {
         */
 };
 
-class check : public option {
+class CheckGuard : public Option {
     private:
-
+        //getline str
+        std::string glStr{};
 
     public:
-        void checkOpt1();
+        //void checkOpt1();
 
+        void checkOpt2();
 };
 
 #endif

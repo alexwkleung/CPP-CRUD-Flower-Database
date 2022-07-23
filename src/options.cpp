@@ -16,7 +16,7 @@
 */
 
 //1. add a new entry to the database 
-void option::opt1() {
+void Option::opt1() {
     //vector to hold strings from getline
     std::vector<std::string> vecGl = {};
 
@@ -46,14 +46,14 @@ void option::opt1() {
             addEntryStr.clear();
 
             //call opt1() after cin clear
-            option::opt1();
+            Option::opt1();
         } else if(!std::binary_search(vecGl.begin(), vecGl.end(), this->addEntryStr)) {
-             if(addEntryStr == miscOptions::goBack) {
-                selectScr selScr;
+             if(addEntryStr == MiscOptions::goBack) {
+                SelectScr selScr;
 
                 addEntryStr.clear();
 
-                std::cout << terminalFormatting::formTypes::clear;
+                std::cout << terminalformatting::FormTypes::clear;
 
                 selScr.select();
             }
@@ -68,34 +68,66 @@ void option::opt1() {
 
             addEntryStr.clear();
 
-            option::opt1(); 
+            Option::opt1(); 
+        }
+    }
+}
+
+//CHECK GUARD: 2. update an entry in the database
+void CheckGuard::checkOpt2() {
+    std::ifstream ifDb("src/db.txt");
+
+    std::vector<std::string> checkUpdateVec = {};
+    
+    std::cin >> this->deleteEntryStr;
+
+    while(std::getline(ifDb, this->glStr)) {
+        checkUpdateVec.push_back(this->glStr);
+        std::sort(checkUpdateVec.begin(), checkUpdateVec.end());
+    }
+
+    if(this->deleteEntryStr == MiscOptions::goBack) {
+        SelectScr selScr;
+
+        deleteEntryStr.clear();
+
+        std::cout << terminalformatting::FormTypes::clear;
+
+        selScr.select();
+    } else if(this->deleteEntryStr != MiscOptions::goBack) {
+        if(std::binary_search(checkUpdateVec.begin(), checkUpdateVec.end(), this->deleteEntryStr)) {
+            Option::opt2();
+        } else {
+            std::cout << terminalformatting::FormTypes::clear << '\n';
+
+            std::cout << MiscOptions::optionsNotFoundStr << '\n';
+
+            CheckGuard::checkOpt2();
         }
     }
 }
 
 //2. update an entry in the database
-void option::opt2() {
+void Option::opt2() {
     std::ifstream db("src/db.txt");
     std::ofstream dbTemp("src/db-temp.txt");
-
-    std::cin >> this->deleteEntryStr;
     
-    if(deleteEntryStr == miscOptions::goBack) {
-        selectScr selScr;
+    if(deleteEntryStr == MiscOptions::goBack) {
+        SelectScr selScr;
 
         deleteEntryStr.clear();
 
-        std::cout << terminalFormatting::formTypes::clear;
+        std::cout << terminalformatting::FormTypes::clear;
 
         selScr.select();
-    } else { 
+    } else if(deleteEntryStr != MiscOptions::goBack) { 
         std::cin >> this->updateEntryStr;
         
         //credit: 
         //https://stackoverflow.com/questions/3418231/replace-part-of-a-string-with-another-string
         //https://stackoverflow.com/questions/42724694/how-to-copy-a-file-into-another-file-but-replace-a-word-with-a-user-entered-word
 
-        while(std::getline(db, glStr)) {
+        while(std::getline(db, this->glStr)) {
             std::string::size_type szType{};
 
             //while condition:
@@ -113,9 +145,9 @@ void option::opt2() {
         db.close();
         dbTemp.close();
             
-        std::cout << terminalFormatting::formTypes::clear;
+        std::cout << terminalformatting::FormTypes::clear;
 
-        std::cout << '\n' << "Updated entry " << deleteEntryStr << " from the database!" << '\n';
+        std::cout << '\n' << "Updated entry " << deleteEntryStr << " in the database!" << '\n';
             
         deleteEntryStr.clear();
         updateEntryStr.clear();
@@ -124,6 +156,8 @@ void option::opt2() {
         std::remove("src/db.txt");
         std::rename("src/db-temp.txt", "src/db.txt");
 
-        option::opt2();
+        CheckGuard ch;
+
+        ch.checkOpt2();
     }
 }

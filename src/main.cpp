@@ -1,10 +1,14 @@
 #include "welcome.h"
 #include "select.h"
+#include "terminalformatting.h"
+#include <iostream> 
 
 int main() {
-    welcomeScr wScr;
+    std::cout << terminalformatting::FormTypes::clear << '\n'; 
 
-    wScr.welcome();
+    WelcomeScr welcScr;
+
+    welcScr.welcome();
 
     return 0;
 }

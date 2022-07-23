@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <string>
 
-void selectScr::select() {
+void SelectScr::select() {
     this->selectTitle = ">> Database options <<";
     this->breakLine = "======================================";
     this->addAnEntry = "1. Add a new entry to the database.";
@@ -30,7 +30,9 @@ void selectScr::select() {
     std::cin >> this->inputSelectStr;
     
     //create object opt from option class 
-    option opt;
+    Option opt;
+
+    CheckGuard ch;
 
     //convert string to int via std::stoi
     int inputSelectStrStoi = std::stoi(inputSelectStr);
@@ -38,7 +40,7 @@ void selectScr::select() {
     if(inputSelectStrStoi == 1) {
         inputSelectStr.clear();
         
-        std::cout << terminalFormatting::formTypes::clear;
+        std::cout << terminalformatting::FormTypes::clear;
 
         opt.opt1();    
     }
@@ -46,8 +48,8 @@ void selectScr::select() {
     if(inputSelectStrStoi == 2) {
         inputSelectStr.clear();
 
-        std::cout << terminalFormatting::formTypes::clear;
+        std::cout << terminalformatting::FormTypes::clear;
 
-        opt.opt2();
+        ch.checkOpt2();
     }
 }

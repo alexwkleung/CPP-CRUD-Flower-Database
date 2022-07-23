@@ -3,12 +3,12 @@
 
 #include <string>
 
-struct miscWelcome {
+struct MiscWelcome {
     public:
         static inline const std::string welcomeInvalidStr = "Invalid input. Try again.";
 };
 
-class welcomeScr {
+class WelcomeScr {
     protected:
         std::string welcomeStr{};
         std::string continueStr{};

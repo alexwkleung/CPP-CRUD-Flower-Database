@@ -3,14 +3,14 @@
 
 #include <string>
 
-struct miscSelect {
+struct MiscSelect {
     public:
         static inline const std::string goBack = "_back";
     
         static inline const std::string selectInvalidStr = "Invalid input. Try again.";
 };
 
-class selectScr {
+class SelectScr {
     private:
         std::string selectTitle{};
         std::string inputSelectStr{};
@@ -22,8 +22,6 @@ class selectScr {
         std::string showAllEntries{};
         std::string exitDB{};
         std::string selectErrorStr{};
-
-    protected: 
         std::string breakLine{};
         
     public:

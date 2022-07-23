@@ -3,8 +3,8 @@
 
 #include <string>
 
-namespace terminalFormatting {
-    struct formTypes {
+namespace terminalformatting {
+    struct FormTypes {
         public:
             static inline const std::string clear = "\033c";
     };
