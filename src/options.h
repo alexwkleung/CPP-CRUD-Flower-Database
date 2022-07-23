@@ -36,6 +36,8 @@ class Option {
 
         void opt5();
         */
+
+       void opt7();
 };
 
 class CheckGuard : public Option {
@@ -44,7 +46,7 @@ class CheckGuard : public Option {
         std::string glStr{};
 
     public:
-        //void checkOpt1();
+        void checkOpt1();
 
         void checkOpt2();
 };

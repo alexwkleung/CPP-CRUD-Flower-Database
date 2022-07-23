@@ -15,62 +15,73 @@
 * a filter for unwanted words being present in the db
 */
 
+//CHECK GUARD: 1. add a new entry to the database
+void CheckGuard::checkOpt1() {
+    std::ifstream ifDb("src/db.txt");
+
+    std::vector<std::string> checkAddEntryVec = {};
+
+    addEntryStr.clear();
+
+    std::cout << "Enter an entry to add: " << addEntryStr;
+
+    std::cin >> this->addEntryStr;
+
+    while(std::getline(ifDb, this->glStr)) {
+        checkAddEntryVec.push_back(glStr);
+        std::sort(checkAddEntryVec.begin(), checkAddEntryVec.end());
+    }
+
+    if(addEntryStr == MiscOptions::goBack) {
+        SelectScr selScr;
+
+        addEntryStr.clear();
+
+        std::cout << terminalformatting::FormTypes::clear;
+
+        selScr.select();
+    } else if(this->addEntryStr != MiscOptions::goBack) {
+        if(std::binary_search(checkAddEntryVec.begin(), checkAddEntryVec.end(), addEntryStr)) {
+            std::cerr << '\n' << addEntryStr << " exists in the database. Try again." << '\n';
+
+            addEntryStr.clear();
+
+            //call checkOpt1() after cin clear
+            CheckGuard::checkOpt1();
+
+        } else if(!std::binary_search(checkAddEntryVec.begin(), checkAddEntryVec.end(), addEntryStr)) {
+            Option::opt1();
+        }
+    }
+}
+
 //1. add a new entry to the database 
 void Option::opt1() {
-    //vector to hold strings from getline
-    std::vector<std::string> vecGl = {};
-
     //input file stream - read from db.txt
     std::ifstream ifdb("src/db.txt");
 
     //file output stream (open db.txt into buffer)
     //set output to be appended to the end of file (db.txt)
     std::ofstream db("src/db.txt", std::ios::app);
-
-    //use getline to read from ifstream and inputGl holds them as strings
-    //push strings to the end of the vector
-    //sort the vector (for binary search)
-    while(std::getline(ifdb, glStr)) {
-        vecGl.push_back(glStr);
-        std::sort(vecGl.begin(), vecGl.end());
-    }
     
     //while loop, taking input as condition
     //condition: binary search within the range of the vector and comparing it against the input
     //if the input matches a string within the vector, output an error 
     //else, add inputted string to the db
-    while(std::cin >> this->addEntryStr) {
-        if(std::binary_search(vecGl.begin(), vecGl.end(), this->addEntryStr)) {
-            std::cerr << '\n' << addEntryStr << " exists in the datatbase. Try again." << '\n';
-
-            addEntryStr.clear();
-
-            //call opt1() after cin clear
-            Option::opt1();
-        } else if(!std::binary_search(vecGl.begin(), vecGl.end(), this->addEntryStr)) {
-             if(addEntryStr == MiscOptions::goBack) {
-                SelectScr selScr;
-
-                addEntryStr.clear();
-
-                std::cout << terminalformatting::FormTypes::clear;
-
-                selScr.select();
-            }
             
-            //write the input to file
-            db << addEntryStr << '\n';
+    //write the input to file
+    db << addEntryStr << '\n';
 
-            //close ifstream buffer
-            db.close();
+    //close ifstream buffer
+    db.close();
 
-            std::cout << '\n' << "Added " << addEntryStr << " to the database!" << '\n';
+    std::cout << '\n' << "Added " << addEntryStr << " to the database!" << '\n';
 
-            addEntryStr.clear();
+    addEntryStr.clear();
 
-            Option::opt1(); 
-        }
-    }
+    CheckGuard cg;
+
+    cg.checkOpt1(); 
 }
 
 //CHECK GUARD: 2. update an entry in the database
@@ -109,7 +120,7 @@ void CheckGuard::checkOpt2() {
         } else if(!std::binary_search(checkUpdateVec.begin(), checkUpdateVec.end(), this->entryForUpdateStr)) {
             std::cout << terminalformatting::FormTypes::clear << '\n';
 
-            std::cout << entryForUpdateStr << MiscOptions::optionsNotFoundStr << '\n';
+            std::cerr << entryForUpdateStr << MiscOptions::optionsNotFoundStr << '\n';
 
             entryForUpdateStr.clear();
 
@@ -169,8 +180,13 @@ void Option::opt2() {
         std::remove("src/db.txt");
         std::rename("src/db-temp.txt", "src/db.txt");
 
-        CheckGuard ch;
+        CheckGuard cg;
 
-        ch.checkOpt2();
+        cg.checkOpt2();
     }
+}
+
+//7. exit the database
+void Option::opt7() {
+    exit(0);
 }

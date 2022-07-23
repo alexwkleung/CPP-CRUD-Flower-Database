@@ -20,6 +20,7 @@ class SelectScr {
         std::string deleteAnEntry{};
         std::string searchTheDB{};
         std::string showAllEntries{};
+        std::string showCommands{};
         std::string exitDB{};
         std::string selectErrorStr{};
         std::string breakLine{};

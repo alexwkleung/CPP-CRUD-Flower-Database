@@ -13,7 +13,8 @@ void SelectScr::select() {
     this->deleteAnEntry = "3. Delete an entry in the database";
     this->searchTheDB = "4. Search the database.";
     this->showAllEntries = "5. Show all entries in the database.";
-    this->exitDB = "6. Exit the database.";
+    this->showCommands = "6. Show commmands.";
+    this->exitDB = "7. Exit the database.";
     this->selectFooStr = "Select an option:";
 
     std::cout << '\n' << '\t' << selectTitle << '\n';
@@ -23,6 +24,7 @@ void SelectScr::select() {
     std::cout << deleteAnEntry << '\n';
     std::cout << searchTheDB << '\n';
     std::cout << showAllEntries << '\n';
+    std::cout << showCommands << '\n';
     std::cout << exitDB << '\n';
 
     std::cout << '\n' << selectFooStr << inputSelectStr << " ";
@@ -42,7 +44,7 @@ void SelectScr::select() {
         
         std::cout << terminalformatting::FormTypes::clear;
 
-        opt.opt1();    
+        ch.checkOpt1();    
     }
 
     if(inputSelectStrStoi == 2) {
@@ -51,5 +53,11 @@ void SelectScr::select() {
         std::cout << terminalformatting::FormTypes::clear;
 
         ch.checkOpt2();
+    }
+
+    if(inputSelectStrStoi == 7) {
+        inputSelectStr.clear();
+
+        opt.opt7();
     }
 }
