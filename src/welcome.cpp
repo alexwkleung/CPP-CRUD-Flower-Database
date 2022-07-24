@@ -8,9 +8,9 @@ void WelcomeScr::welcome() {
     this->welcomeStr = "Welcome to the CRUD Flower Database!";
     this->continueStr = "Continue? (y/n):";
 
-    std::cout << '\n' << welcomeStr << '\n';
+    std::cout << '\n' << terminalformatting::FormTypes::lightMagenta << welcomeStr << terminalformatting::FormTypes::defaultColour << '\n';
                         
-    std::cout << '\n' << continueStr << this->continueInput << " ";
+    std::cout << '\n' << terminalformatting::FormTypes::lightYellow << continueStr << this->continueInput << terminalformatting::FormTypes::defaultColour << " ";
 
     std::cin >> this->continueInput;
     
@@ -29,7 +29,7 @@ void WelcomeScr::welcome() {
         selScr.select();
     } else if(n == true) {
         std::cout << terminalformatting::FormTypes::clear;
-        
+
         exit(0); 
     }
 
@@ -41,7 +41,7 @@ void WelcomeScr::welcome() {
     if(y == false || n == false) {
         std::cout << terminalformatting::FormTypes::clear;
 
-        std::cerr << '\n' << MiscWelcome::welcomeInvalidStr << '\n';
+        std::cerr << '\n' << terminalformatting::FormTypes::lightRed << MiscWelcome::welcomeInvalidStr << terminalformatting::FormTypes::defaultColour << '\n';
 
         WelcomeScr::welcome();
     }

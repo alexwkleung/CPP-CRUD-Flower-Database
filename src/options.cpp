@@ -8,16 +8,6 @@
 #include <algorithm>
 #include <iterator>
 
-/*
-** implement:
-
-* separate checking mechanism from options
-
-* a filter for unwanted words being present in the db
-
-* terminal colours
-*/
-
 //CHECK GUARD: 1. add a new entry to the database
 void CheckGuard::checkOpt1() {
     std::ifstream ifDb("src/db.txt");
@@ -26,7 +16,7 @@ void CheckGuard::checkOpt1() {
 
     addEntryStr.clear();
 
-    std::cout << '\n' << "Enter an entry to add: " << addEntryStr;
+    std::cout << '\n' << terminalformatting::FormTypes::lightYellow << "Enter an entry to add: " << addEntryStr << terminalformatting::FormTypes::defaultColour;
 
     std::cin >> this->addEntryStr;
 
@@ -47,7 +37,7 @@ void CheckGuard::checkOpt1() {
         if(std::binary_search(checkAddEntryVec.begin(), checkAddEntryVec.end(), addEntryStr)) {
             std::cout << terminalformatting::FormTypes::clear; 
 
-            std::cerr << '\n' << addEntryStr << " exists in the database. Try again." << '\n';
+            std::cerr << '\n' << terminalformatting::FormTypes::lightRed << addEntryStr << " exists in the database. Try again." << terminalformatting::FormTypes::defaultColour << '\n';
 
             addEntryStr.clear();
 
@@ -77,7 +67,7 @@ void Option::opt1() {
 
     std::cout << terminalformatting::FormTypes::clear;
 
-    std::cout << '\n' << "Added " << addEntryStr << " to the database!" << '\n';
+    std::cout << '\n' << terminalformatting::FormTypes::lightGreen << "Added " << terminalformatting::FormTypes::lightMagenta << addEntryStr << terminalformatting::FormTypes::lightGreen << " to the database!" << terminalformatting::FormTypes::defaultColour << '\n';
 
     //clear cin input
     addEntryStr.clear();
@@ -93,7 +83,7 @@ void CheckGuard::checkOpt2() {
 
     std::vector<std::string> checkUpdateVec = {};
     
-    std::cout << '\n' << "Enter the entry to update: " << entryForUpdateStr;
+    std::cout << '\n' << terminalformatting::FormTypes::lightYellow << "Enter the entry to update: " << entryForUpdateStr << terminalformatting::FormTypes::defaultColour; 
 
     //take input for string to be deleted in db
     std::cin >> this->entryForUpdateStr;
@@ -126,7 +116,7 @@ void CheckGuard::checkOpt2() {
         } else if(!std::binary_search(checkUpdateVec.begin(), checkUpdateVec.end(), this->entryForUpdateStr)) {
             std::cout << terminalformatting::FormTypes::clear << '\n';
 
-            std::cerr << entryForUpdateStr << MiscOptions::optionsNotFoundStr << '\n';
+            std::cerr << terminalformatting::FormTypes::lightMagenta << entryForUpdateStr << terminalformatting::FormTypes::lightRed << MiscOptions::optionsNotFoundStr << terminalformatting::FormTypes::defaultColour << '\n';
 
             ifDb.close();
 
@@ -151,7 +141,7 @@ void Option::opt2() {
 
         selScr.select();
     } else if(entryForUpdateStr != MiscOptions::goBack) { 
-        std::cout << '\n' << "Enter the updated entry: " << updatedEntryStr;
+        std::cout << '\n' << terminalformatting::FormTypes::lightYellow << "Enter the updated entry: " << updatedEntryStr << terminalformatting::FormTypes::defaultColour;
 
         std::cin >> this->updatedEntryStr;
         
@@ -183,7 +173,7 @@ void Option::opt2() {
 
         std::cout << terminalformatting::FormTypes::clear;
 
-        std::cout << '\n' << "Updated entry " << entryForUpdateStr << " in the database!" << " (" << entryForUpdateStr << " --> " << updatedEntryStr << ")" << '\n';
+        std::cout << '\n' << terminalformatting::FormTypes::lightGreen << "Updated entry " << terminalformatting::FormTypes::lightMagenta << entryForUpdateStr << terminalformatting::FormTypes::lightGreen << " in the database!" << " (" << terminalformatting::FormTypes::lightMagenta << entryForUpdateStr << terminalformatting::FormTypes::lightGreen << " --> " << terminalformatting::FormTypes::lightMagenta << updatedEntryStr << terminalformatting::FormTypes::lightGreen << ")" << terminalformatting::FormTypes::defaultColour << '\n';
 
         entryForUpdateStr.clear();
         updatedEntryStr.clear();
@@ -200,7 +190,7 @@ void CheckGuard::checkOpt3() {
 
     std::vector<std::string> deleteEntryVec = {};
 
-    std::cout << '\n' << "Enter string to delete: " << this->deleteEntryStr;
+    std::cout << '\n' << terminalformatting::FormTypes::lightYellow << "Enter string to delete: " << this->deleteEntryStr << terminalformatting::FormTypes::defaultColour;
     
     std::cin >> this->deleteEntryStr;
 
@@ -223,7 +213,7 @@ void CheckGuard::checkOpt3() {
         } else if(!std::binary_search(deleteEntryVec.begin(), deleteEntryVec.end(), this->deleteEntryStr)) {
             std::cout << terminalformatting::FormTypes::clear;
 
-            std::cerr << deleteEntryStr << MiscOptions::optionsNotFoundStr << '\n';
+            std::cerr << terminalformatting::FormTypes::lightMagenta << deleteEntryStr << terminalformatting::FormTypes::lightRed << MiscOptions::optionsNotFoundStr << terminalformatting::FormTypes::defaultColour << '\n';
 
             deleteEntryStr.clear();
 
@@ -253,7 +243,7 @@ void Option::opt3() {
 
     std::cout << terminalformatting::FormTypes::clear;
     
-    std::cout << "Deleted " << deleteEntryStr << " from the database!" << '\n';
+    std::cout << terminalformatting::FormTypes::lightGreen << "Deleted " << terminalformatting::FormTypes::lightMagenta << deleteEntryStr << terminalformatting::FormTypes::lightGreen << " from the database!" << terminalformatting::FormTypes::defaultColour << '\n';
 
     deleteEntryStr.clear();
 
@@ -264,7 +254,7 @@ void Option::opt3() {
 
 //CHECK GUARD: 4. search the database
 void CheckGuard::checkOpt4() {
-    std::cout << '\n' << "Search for an entry: " << searchEntryStr;
+    std::cout << '\n' << terminalformatting::FormTypes::lightYellow << "Search for an entry: " << searchEntryStr << terminalformatting::FormTypes::defaultColour;
 
     std::cin >> searchEntryStr;
 
@@ -295,19 +285,19 @@ void Option::opt4() {
     if(std::binary_search(searchVec.begin(), searchVec.end(), this->searchEntryStr)) {
         std::cout << terminalformatting::FormTypes::clear; 
 
-        std::cout << "Entry found: " << searchEntryStr << '\n';
+        std::cout << terminalformatting::FormTypes::lightGreen << "Entry found: " << terminalformatting::FormTypes::lightMagenta << searchEntryStr << terminalformatting::FormTypes::defaultColour << '\n';
 
         //check if element at index of vector is equal to input
         //then output the index of the input within the sorted vector
         for(std::vector<std::string>::size_type i = 0; i < searchVec.size(); i++) {
             if(searchVec[i] == searchEntryStr) {
-                std::cout << "At index (sorted vector; 0-based): " << i << '\n';
+                std::cout << terminalformatting::FormTypes::lightGreen << "At index (sorted vector; 0-based): " << terminalformatting::FormTypes::lightMagenta << i << terminalformatting::FormTypes::defaultColour << '\n';
             }
         }
     } else if(!std::binary_search(searchVec.begin(), searchVec.end(), this->searchEntryStr)) {
         std::cout << terminalformatting::FormTypes::clear;
 
-        std::cout << searchEntryStr << MiscOptions::optionsNotFoundStr << '\n';
+        std::cerr << terminalformatting::FormTypes::lightMagenta << searchEntryStr << terminalformatting::FormTypes::lightRed << MiscOptions::optionsNotFoundStr << terminalformatting::FormTypes::defaultColour << '\n';
 
         CheckGuard cg;
         
@@ -340,7 +330,7 @@ void Option::opt5() {
 
     ifDb.close();
 
-    std::cout << '\n' << "Type _back to go back: " << showAllEntriesStr;
+    std::cout << '\n' << terminalformatting::FormTypes::lightYellow << "Type _back to go back: " << showAllEntriesStr << terminalformatting::FormTypes::defaultColour;
 
     std::cin >> showAllEntriesStr;
 
@@ -355,7 +345,7 @@ void Option::opt5() {
     } else if(showAllEntriesStr != MiscOptions::goBack) {
         std::cout << terminalformatting::FormTypes::clear;
 
-        std::cout << MiscOptions::optionsInvalidStr << '\n' << '\n';
+        std::cerr << terminalformatting::FormTypes::lightRed << MiscOptions::optionsInvalidStr << terminalformatting::FormTypes::defaultColour << '\n' << '\n';
 
         showAllEntriesStr.clear();
 
@@ -382,7 +372,7 @@ void Option::opt6() {
     } else if(helpCommandsStr != MiscOptions::goBack) {
         std::cout << terminalformatting::FormTypes::clear;
 
-        std::cout << MiscOptions::optionsInvalidStr << '\n' << '\n';
+        std::cerr << terminalformatting::FormTypes::lightRed << MiscOptions::optionsInvalidStr << terminalformatting::FormTypes::defaultColour << '\n' << '\n';
 
         helpCommandsStr.clear();
 

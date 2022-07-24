@@ -15,9 +15,9 @@ void SelectScr::select() {
     this->showAllEntries = "5. Show all entries in the database.";
     this->showCommands = "6. Show help commmands.";
     this->exitDB = "7. Exit the database.";
-    this->selectFooStr = "Select an option:";
+    this->inputSelectStr = "Select an option:";
 
-    std::cout << '\n' << '\t' << selectTitle << '\n';
+    std::cout << '\n' << '\t' << terminalformatting::FormTypes::lightCyan << selectTitle << terminalformatting::FormTypes::defaultColour << '\n';
     std::cout << breakLine << '\n';
     std::cout << addAnEntry << '\n';
     std::cout << updateAnEntry << '\n';
@@ -27,7 +27,7 @@ void SelectScr::select() {
     std::cout << showCommands << '\n';
     std::cout << exitDB << '\n';
 
-    std::cout << '\n' << selectFooStr << inputSelectStr << " ";
+    std::cout << '\n' << terminalformatting::FormTypes::lightYellow << inputSelectStr << terminalformatting::FormTypes::defaultColour << " ";
 
     std::cin >> this->inputSelectStr;
     
@@ -99,7 +99,7 @@ void SelectScr::select() {
     catch(std::invalid_argument &e) {
         std::cout << terminalformatting::FormTypes::clear;
 
-        std::cout << MiscSelect::selectInvalidStr << '\n';
+        std::cout << '\n' << terminalformatting::FormTypes::lightRed << MiscSelect::selectInvalidStr << terminalformatting::FormTypes::defaultColour << '\n';
 
         inputSelectStr.clear();
 

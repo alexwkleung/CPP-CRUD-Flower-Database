@@ -14,7 +14,6 @@ class SelectScr {
     private:
         std::string selectTitle{};
         std::string inputSelectStr{};
-        std::string selectFooStr{};
         std::string addAnEntry{};
         std::string updateAnEntry{};
         std::string deleteAnEntry{};
