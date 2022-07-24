@@ -190,7 +190,7 @@ void CheckGuard::checkOpt3() {
 
     std::vector<std::string> deleteEntryVec = {};
 
-    std::cout << '\n' << terminalformatting::FormTypes::lightYellow << "Enter string to delete: " << this->deleteEntryStr << terminalformatting::FormTypes::defaultColour;
+    std::cout << '\n' << terminalformatting::FormTypes::lightYellow << "Enter entry to delete: " << this->deleteEntryStr << terminalformatting::FormTypes::defaultColour;
     
     std::cin >> this->deleteEntryStr;
 
