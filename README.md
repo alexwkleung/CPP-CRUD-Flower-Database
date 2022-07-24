@@ -4,6 +4,8 @@
 
 A rewrite of my C++ CRUD Flower Database project. 
 
+This is a simple CRUD (Create, Read, Update, Delete) app in the CLI that uses a flat-file database.
+
 # Database Options
 
 **1. Add a new entry to the database**
@@ -53,3 +55,11 @@ Shows all entries in the database - sorted alphabetically.
 **6. Show help commands**
 
 Shows help commands such as `_back`.
+
+# Edge Cases
+
+For now, this CRUD app does not handle all edge cases when adding, updating, deleting, and searching entries.
+
+1) Words that contain spaces will not work, i.e., `Flower Pot`.
+
+2) The flat-file database only contains entries as a plain list and not like a traditional database with columns. So doing very specific adding, updating, deleting, searching, and showing from/to a specific column are not handled.
