@@ -7,6 +7,7 @@
 #include <string>
 #include <algorithm>
 #include <iterator>
+#include <cstdlib>
 
 //CHECK GUARD: 1. add a new entry to the database
 void CheckGuard::checkOpt1() {
@@ -384,5 +385,5 @@ void Option::opt6() {
 void Option::opt7() {
     std::cout << terminalformatting::FormTypes::clear;
 
-    exit(0);
+    std::exit(0);
 }

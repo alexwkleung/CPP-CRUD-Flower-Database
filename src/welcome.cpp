@@ -3,6 +3,7 @@
 #include "terminalformatting.h"
 #include <iostream>
 #include <string>
+#include <cstdlib>
 
 void WelcomeScr::welcome() {
     this->welcomeStr = "Welcome to the CRUD Flower Database!";
@@ -30,7 +31,7 @@ void WelcomeScr::welcome() {
     } else if(n == true) {
         std::cout << terminalformatting::FormTypes::clear;
 
-        exit(0); 
+        std::exit(0); 
     }
 
     //clear cin buffer
