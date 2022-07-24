@@ -68,11 +68,6 @@ void Option::opt1() {
     //file output stream (open db.txt into buffer)
     //set output to be appended to the end of file (db.txt)
     std::ofstream db("src/db.txt", std::ios::app);
-    
-    //while loop, taking input as condition
-    //condition: binary search within the range of the vector and comparing it against the input
-    //if the input matches a string within the vector, output an error 
-    //else, add inputted string to the db
             
     //write the input to file
     db << addEntryStr << '\n';
@@ -84,6 +79,7 @@ void Option::opt1() {
 
     std::cout << '\n' << "Added " << addEntryStr << " to the database!" << '\n';
 
+    //clear cin input
     addEntryStr.clear();
 
     CheckGuard cg;
@@ -111,8 +107,9 @@ void CheckGuard::checkOpt2() {
 
     //checking input:
     //check to see if the input contains goback str
-    //then checks input against the sorted vector using binary search
+    //then checks input against the sorted vector using binary search (truthy checking)
     //when input is found within the sorted vector, it will update the entry given a second input
+    //when the binary search fails (falsy checking) then it restarts option 2 (via function call)
     if(this->entryForUpdateStr == MiscOptions::goBack) {
         SelectScr selScr;
 
@@ -300,6 +297,8 @@ void Option::opt4() {
 
         std::cout << "Entry found: " << searchEntryStr << '\n';
 
+        //check if element at index of vector is equal to input
+        //then output the index of the input within the sorted vector
         for(std::vector<std::string>::size_type i = 0; i < searchVec.size(); i++) {
             if(searchVec[i] == searchEntryStr) {
                 std::cout << "At index (sorted vector): " << i << '\n';
