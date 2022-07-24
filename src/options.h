@@ -24,14 +24,17 @@ class Option {
         std::string entryForUpdateStr{};
         std::string updatedEntryStr{};
 
+        //delete entry
+        std::string deleteEntryStr{};
+
     public:
         void opt1();
 
         void opt2();
 
-        /*
         void opt3();
 
+        /*
         void opt3();
 
         void opt5();
@@ -49,6 +52,8 @@ class CheckGuard : public Option {
         void checkOpt1();
 
         void checkOpt2();
+
+        void checkOpt3();
 };
 
 #endif

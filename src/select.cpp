@@ -55,6 +55,14 @@ void SelectScr::select() {
         ch.checkOpt2();
     }
 
+    if(inputSelectStrStoi == 3) {
+        inputSelectStr.clear();
+
+        std::cout << terminalformatting::FormTypes::clear;
+
+        ch.checkOpt3();
+    }
+    
     if(inputSelectStrStoi == 7) {
         inputSelectStr.clear();
 

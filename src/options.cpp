@@ -42,6 +42,8 @@ void CheckGuard::checkOpt1() {
         selScr.select();
     } else if(this->addEntryStr != MiscOptions::goBack) {
         if(std::binary_search(checkAddEntryVec.begin(), checkAddEntryVec.end(), addEntryStr)) {
+            std::cout << terminalformatting::FormTypes::clear; 
+
             std::cerr << '\n' << addEntryStr << " exists in the database. Try again." << '\n';
 
             addEntryStr.clear();
@@ -74,6 +76,8 @@ void Option::opt1() {
 
     //close ifstream buffer
     db.close();
+
+    std::cout << terminalformatting::FormTypes::clear;
 
     std::cout << '\n' << "Added " << addEntryStr << " to the database!" << '\n';
 
@@ -109,6 +113,8 @@ void CheckGuard::checkOpt2() {
     if(this->entryForUpdateStr == MiscOptions::goBack) {
         SelectScr selScr;
 
+        ifDb.close();
+
         entryForUpdateStr.clear();
 
         std::cout << terminalformatting::FormTypes::clear;
@@ -121,6 +127,8 @@ void CheckGuard::checkOpt2() {
             std::cout << terminalformatting::FormTypes::clear << '\n';
 
             std::cerr << entryForUpdateStr << MiscOptions::optionsNotFoundStr << '\n';
+
+            ifDb.close();
 
             entryForUpdateStr.clear();
 
@@ -168,17 +176,17 @@ void Option::opt2() {
 
         db.close();
         dbTemp.close();
-            
-        std::cout << terminalformatting::FormTypes::clear;
-
-        std::cout << '\n' << "Updated entry " << entryForUpdateStr << " in the database!" << " (" << entryForUpdateStr << " --> " << updatedEntryStr << ")" << '\n';
-            
-        entryForUpdateStr.clear();
-        updatedEntryStr.clear();
 
         //remove old db.txt with updated db.txt (temp)
         std::remove("src/db.txt");
         std::rename("src/db-temp.txt", "src/db.txt");
+
+        std::cout << terminalformatting::FormTypes::clear;
+
+        std::cout << '\n' << "Updated entry " << entryForUpdateStr << " in the database!" << " (" << entryForUpdateStr << " --> " << updatedEntryStr << ")" << '\n';
+
+        entryForUpdateStr.clear();
+        updatedEntryStr.clear();
 
         CheckGuard cg;
 
@@ -186,7 +194,77 @@ void Option::opt2() {
     }
 }
 
+//CHECK GUARD: 3. delete an entry in the database
+void CheckGuard::checkOpt3() {
+    std::ifstream ifDb("src/db.txt");
+
+    std::vector<std::string> deleteEntryVec = {};
+
+    std::cout << "Enter string to delete: " << this->deleteEntryStr;
+    
+    std::cin >> this->deleteEntryStr;
+
+    while(std::getline(ifDb, glStr)) {
+        deleteEntryVec.push_back(glStr);
+        std::sort(deleteEntryVec.begin(), deleteEntryVec.end());
+    }
+
+    if(deleteEntryStr == MiscOptions::goBack) {
+        SelectScr selScr;
+
+        deleteEntryStr.clear();
+
+        std::cout << terminalformatting::FormTypes::clear;
+
+        selScr.select();
+    } else if(deleteEntryStr != MiscOptions::goBack) {
+        if(std::binary_search(deleteEntryVec.begin(), deleteEntryVec.end(), this->deleteEntryStr)) {
+            Option::opt3();
+        } else if(!std::binary_search(deleteEntryVec.begin(), deleteEntryVec.end(), this->deleteEntryStr)) {
+            std::cout << terminalformatting::FormTypes::clear;
+
+            std::cerr << deleteEntryStr << MiscOptions::optionsNotFoundStr << '\n';
+
+            deleteEntryStr.clear();
+
+            CheckGuard::checkOpt3();
+        }
+    }
+}
+
+//3. delete an entry in the database
+void Option::opt3() {
+    std::ifstream ifDb("src/db.txt");
+    std::ofstream ofDb("src/db-temp.txt");
+    
+    //store input file stream (ifDb) as strings in glStr
+    //append all strings to output file stream (ofDb) except the one for deletion (input - deleteEntryStr)
+    while(std::getline(ifDb, glStr)) {
+        if(glStr != deleteEntryStr) {
+            ofDb << glStr << '\n';
+        }
+    }
+
+    ifDb.close();
+    ofDb.close();
+
+    std::remove("src/db.txt");
+    std::rename("src/db-temp.txt", "src/db.txt");
+
+    std::cout << terminalformatting::FormTypes::clear;
+    
+    std::cout << "Deleted " << deleteEntryStr << " from the database!" << '\n';
+
+    deleteEntryStr.clear();
+
+    CheckGuard cg;
+    
+    cg.checkOpt3();
+}
+
 //7. exit the database
 void Option::opt7() {
+    std::cout << terminalformatting::FormTypes::clear;
+    
     exit(0);
 }

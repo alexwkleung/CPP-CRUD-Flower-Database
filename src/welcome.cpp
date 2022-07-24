@@ -28,6 +28,8 @@ void WelcomeScr::welcome() {
 
         selScr.select();
     } else if(n == true) {
+        std::cout << terminalformatting::FormTypes::clear;
+        
         exit(0); 
     }
 
