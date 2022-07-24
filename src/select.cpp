@@ -99,7 +99,7 @@ void SelectScr::select() {
     catch(std::invalid_argument &e) {
         std::cout << terminalformatting::FormTypes::clear;
 
-        std::cout << '\n' << terminalformatting::FormTypes::lightRed << MiscSelect::selectInvalidStr << terminalformatting::FormTypes::defaultColour << '\n';
+        std::cerr << '\n' << terminalformatting::FormTypes::lightRed << MiscSelect::selectInvalidStr << terminalformatting::FormTypes::defaultColour << '\n';
 
         inputSelectStr.clear();
 
