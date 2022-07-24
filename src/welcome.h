@@ -9,7 +9,7 @@ struct MiscWelcome {
 };
 
 class WelcomeScr {
-    protected:
+    private:
         std::string welcomeStr{};
         std::string continueStr{};
         std::string continueInput{};

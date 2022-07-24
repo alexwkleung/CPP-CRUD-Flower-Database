@@ -34,17 +34,17 @@ void CheckGuard::checkOpt1() {
 
         selScr.select();
     } else if(this->addEntryStr != MiscOptions::goBack) {
-        if(std::binary_search(checkAddEntryVec.begin(), checkAddEntryVec.end(), addEntryStr)) {
+        if(std::binary_search(checkAddEntryVec.begin(), checkAddEntryVec.end(), this->addEntryStr)) {
             std::cout << terminalformatting::FormTypes::clear; 
 
-            std::cerr << '\n' << terminalformatting::FormTypes::lightRed << addEntryStr << " exists in the database. Try again." << terminalformatting::FormTypes::defaultColour << '\n';
+            std::cerr << '\n' << terminalformatting::FormTypes::lightMagenta << addEntryStr << terminalformatting::FormTypes::lightRed << " exists in the database. Try again." << terminalformatting::FormTypes::defaultColour << '\n';
 
             addEntryStr.clear();
 
             //call checkOpt1() after cin clear
             CheckGuard::checkOpt1();
 
-        } else if(!std::binary_search(checkAddEntryVec.begin(), checkAddEntryVec.end(), addEntryStr)) {
+        } else if(!std::binary_search(checkAddEntryVec.begin(), checkAddEntryVec.end(), this->addEntryStr)) {
             Option::opt1();
         }
     }
@@ -157,7 +157,7 @@ void Option::opt2() {
             //szType represents the maximum size of entryForUpdateStr
             //and that must not equal std::string::npos (size_type of npos is the largest it can handle)
             while((szType = glStr.find(entryForUpdateStr) != std::string::npos)) {
-                glStr.replace(glStr.find(entryForUpdateStr), entryForUpdateStr.length(), updatedEntryStr);
+                glStr.replace(glStr.find(entryForUpdateStr), entryForUpdateStr.length(), this->updatedEntryStr);
             }
 
             //append contents of glStr to dbTemp
@@ -256,7 +256,7 @@ void Option::opt3() {
 void CheckGuard::checkOpt4() {
     std::cout << '\n' << terminalformatting::FormTypes::lightYellow << "Search for an entry: " << searchEntryStr << terminalformatting::FormTypes::defaultColour;
 
-    std::cin >> searchEntryStr;
+    std::cin >> this->searchEntryStr;
 
     if(searchEntryStr == MiscOptions::goBack) {
         SelectScr selScr;
@@ -332,7 +332,7 @@ void Option::opt5() {
 
     std::cout << '\n' << terminalformatting::FormTypes::lightYellow << "Type _back to go back: " << showAllEntriesStr << terminalformatting::FormTypes::defaultColour;
 
-    std::cin >> showAllEntriesStr;
+    std::cin >> this->showAllEntriesStr;
 
     if(showAllEntriesStr == MiscOptions::goBack) {
         SelectScr selScr;
@@ -357,9 +357,9 @@ void Option::opt5() {
 void Option::opt6() {
     std::cout << "1) _back: " << "Go back to select menu." << '\n';
 
-    std::cout << '\n' << helpCommandsStr;
+    std::cout << '\n' << terminalformatting::FormTypes::lightYellow << "Enter a command: " << helpCommandsStr << terminalformatting::FormTypes::defaultColour;
 
-    std::cin >> helpCommandsStr;
+    std::cin >> this->helpCommandsStr;
 
     if(helpCommandsStr == MiscOptions::goBack) {
         SelectScr selScr;
