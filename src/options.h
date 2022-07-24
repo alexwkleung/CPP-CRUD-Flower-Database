@@ -30,6 +30,12 @@ class Option {
         //search entry
         std::string searchEntryStr{};
 
+        //show all entries
+        std::string showAllEntriesStr{};
+
+        //help commands
+        std::string helpCommandsStr{};
+
     public:
         void opt1();
 
@@ -39,13 +45,11 @@ class Option {
 
         void opt4();
 
-        /*
         void opt5();
 
         void opt6();
-        */
 
-       void opt7();
+        void opt7();
 };
 
 class CheckGuard : public Option {
@@ -61,6 +65,8 @@ class CheckGuard : public Option {
         void checkOpt3();
 
         void checkOpt4();
+
+        void checkOpt5();
 };
 
 #endif

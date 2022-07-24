@@ -26,7 +26,7 @@ void CheckGuard::checkOpt1() {
 
     addEntryStr.clear();
 
-    std::cout << "Enter an entry to add: " << addEntryStr;
+    std::cout << '\n' << "Enter an entry to add: " << addEntryStr;
 
     std::cin >> this->addEntryStr;
 
@@ -93,7 +93,7 @@ void CheckGuard::checkOpt2() {
 
     std::vector<std::string> checkUpdateVec = {};
     
-    std::cout << "Enter the entry to update: " << entryForUpdateStr;
+    std::cout << '\n' << "Enter the entry to update: " << entryForUpdateStr;
 
     //take input for string to be deleted in db
     std::cin >> this->entryForUpdateStr;
@@ -151,7 +151,7 @@ void Option::opt2() {
 
         selScr.select();
     } else if(entryForUpdateStr != MiscOptions::goBack) { 
-        std::cout << "Enter the updated entry: " << updatedEntryStr;
+        std::cout << '\n' << "Enter the updated entry: " << updatedEntryStr;
 
         std::cin >> this->updatedEntryStr;
         
@@ -200,11 +200,11 @@ void CheckGuard::checkOpt3() {
 
     std::vector<std::string> deleteEntryVec = {};
 
-    std::cout << "Enter string to delete: " << this->deleteEntryStr;
+    std::cout << '\n' << "Enter string to delete: " << this->deleteEntryStr;
     
     std::cin >> this->deleteEntryStr;
 
-    while(std::getline(ifDb, glStr)) {
+    while(std::getline(ifDb, this->glStr)) {
         deleteEntryVec.push_back(glStr);
         std::sort(deleteEntryVec.begin(), deleteEntryVec.end());
     }
@@ -239,7 +239,7 @@ void Option::opt3() {
     
     //store input file stream (ifDb) as strings in glStr
     //append all strings to output file stream (ofDb) except the one for deletion (input - deleteEntryStr)
-    while(std::getline(ifDb, glStr)) {
+    while(std::getline(ifDb, this->glStr)) {
         if(glStr != deleteEntryStr) {
             ofDb << glStr << '\n';
         }
@@ -264,7 +264,7 @@ void Option::opt3() {
 
 //CHECK GUARD: 4. search the database
 void CheckGuard::checkOpt4() {
-    std::cout << "Search for an entry: " << searchEntryStr;
+    std::cout << '\n' << "Search for an entry: " << searchEntryStr;
 
     std::cin >> searchEntryStr;
 
@@ -287,7 +287,7 @@ void Option::opt4() {
 
     std::vector<std::string> searchVec = {};
 
-    while(std::getline(ifDb, glStr)) {
+    while(std::getline(ifDb, this->glStr)) {
         searchVec.push_back(glStr);
         std::sort(searchVec.begin(), searchVec.end());
     }
@@ -301,7 +301,7 @@ void Option::opt4() {
         //then output the index of the input within the sorted vector
         for(std::vector<std::string>::size_type i = 0; i < searchVec.size(); i++) {
             if(searchVec[i] == searchEntryStr) {
-                std::cout << "At index (sorted vector): " << i << '\n';
+                std::cout << "At index (sorted vector; 0-based): " << i << '\n';
             }
         }
     } else if(!std::binary_search(searchVec.begin(), searchVec.end(), this->searchEntryStr)) {
@@ -322,6 +322,73 @@ void Option::opt4() {
 
     cg.checkOpt4();
 }
+
+//5. show all entries in the database 
+void Option::opt5() {
+    std::ifstream ifDb("src/db.txt");
+
+    std::vector<std::string> showAllEntriesVec = {};
+
+    while(std::getline(ifDb, this->glStr)) {
+        showAllEntriesVec.push_back(glStr);
+        std::sort(showAllEntriesVec.begin(), showAllEntriesVec.end());
+    }
+
+    for(std::vector<std::string>::iterator it = showAllEntriesVec.begin(); it != showAllEntriesVec.end(); it++) {
+        std::cout << *it << '\n';
+    }
+
+    ifDb.close();
+
+    std::cout << '\n' << "Type _back to go back: " << showAllEntriesStr;
+
+    std::cin >> showAllEntriesStr;
+
+    if(showAllEntriesStr == MiscOptions::goBack) {
+        SelectScr selScr;
+
+        showAllEntriesStr.clear();
+
+        std::cout << terminalformatting::FormTypes::clear;
+
+        selScr.select();
+    } else if(showAllEntriesStr != MiscOptions::goBack) {
+        std::cout << terminalformatting::FormTypes::clear;
+
+        std::cout << MiscOptions::optionsInvalidStr << '\n' << '\n';
+
+        showAllEntriesStr.clear();
+
+        Option::opt5();
+    }
+}
+
+//6. Show help commands
+void Option::opt6() {
+    std::cout << "1) _back: " << "Go back to select menu." << '\n';
+
+    std::cout << '\n' << helpCommandsStr;
+
+    std::cin >> helpCommandsStr;
+
+    if(helpCommandsStr == MiscOptions::goBack) {
+        SelectScr selScr;
+
+        helpCommandsStr.clear();
+
+        std::cout << terminalformatting::FormTypes::clear;
+
+        selScr.select();
+    } else if(helpCommandsStr != MiscOptions::goBack) {
+        std::cout << terminalformatting::FormTypes::clear;
+
+        std::cout << MiscOptions::optionsInvalidStr << '\n' << '\n';
+
+        helpCommandsStr.clear();
+
+        Option::opt6();
+    }
+} 
 
 //7. exit the database
 void Option::opt7() {
