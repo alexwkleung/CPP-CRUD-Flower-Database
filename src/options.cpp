@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <iterator>
 
 /*
 ** implement:
@@ -13,6 +14,8 @@
 * separate checking mechanism from options
 
 * a filter for unwanted words being present in the db
+
+* terminal colours
 */
 
 //CHECK GUARD: 1. add a new entry to the database
@@ -106,7 +109,7 @@ void CheckGuard::checkOpt2() {
         std::sort(checkUpdateVec.begin(), checkUpdateVec.end());
     }
 
-    //checking input ():
+    //checking input:
     //check to see if the input contains goback str
     //then checks input against the sorted vector using binary search
     //when input is found within the sorted vector, it will update the entry given a second input
@@ -262,9 +265,68 @@ void Option::opt3() {
     cg.checkOpt3();
 }
 
+//CHECK GUARD: 4. search the database
+void CheckGuard::checkOpt4() {
+    std::cout << "Search for an entry: " << searchEntryStr;
+
+    std::cin >> searchEntryStr;
+
+    if(searchEntryStr == MiscOptions::goBack) {
+        SelectScr selScr;
+
+        searchEntryStr.clear();
+
+        std::cout << terminalformatting::FormTypes::clear;
+
+        selScr.select();
+    } else if(searchEntryStr != MiscOptions::goBack) {
+        Option::opt4();
+    }
+}
+
+//4. search the database
+void Option::opt4() {
+    std::ifstream ifDb("src/db.txt");
+
+    std::vector<std::string> searchVec = {};
+
+    while(std::getline(ifDb, glStr)) {
+        searchVec.push_back(glStr);
+        std::sort(searchVec.begin(), searchVec.end());
+    }
+
+    if(std::binary_search(searchVec.begin(), searchVec.end(), this->searchEntryStr)) {
+        std::cout << terminalformatting::FormTypes::clear; 
+
+        std::cout << "Entry found: " << searchEntryStr << '\n';
+
+        for(std::vector<std::string>::size_type i = 0; i < searchVec.size(); i++) {
+            if(searchVec[i] == searchEntryStr) {
+                std::cout << "At index (sorted vector): " << i << '\n';
+            }
+        }
+    } else if(!std::binary_search(searchVec.begin(), searchVec.end(), this->searchEntryStr)) {
+        std::cout << terminalformatting::FormTypes::clear;
+
+        std::cout << searchEntryStr << MiscOptions::optionsNotFoundStr << '\n';
+
+        CheckGuard cg;
+        
+        cg.checkOpt4();
+    }
+
+    ifDb.close();
+
+    deleteEntryStr.clear();
+
+    CheckGuard cg;
+
+    cg.checkOpt4();
+}
+
 //7. exit the database
 void Option::opt7() {
     std::cout << terminalformatting::FormTypes::clear;
-    
+
     exit(0);
 }

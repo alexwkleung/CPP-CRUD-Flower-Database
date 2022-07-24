@@ -26,6 +26,9 @@ class Option {
 
         //delete entry
         std::string deleteEntryStr{};
+        
+        //search entry
+        std::string searchEntryStr{};
 
     public:
         void opt1();
@@ -34,10 +37,12 @@ class Option {
 
         void opt3();
 
-        /*
-        void opt3();
+        void opt4();
 
+        /*
         void opt5();
+
+        void opt6();
         */
 
        void opt7();
@@ -54,6 +59,8 @@ class CheckGuard : public Option {
         void checkOpt2();
 
         void checkOpt3();
+
+        void checkOpt4();
 };
 
 #endif

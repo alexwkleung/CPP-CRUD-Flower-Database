@@ -36,36 +36,57 @@ void SelectScr::select() {
 
     CheckGuard ch;
 
-    //convert string to int via std::stoi
-    int inputSelectStrStoi = std::stoi(inputSelectStr);
-
-    if(inputSelectStrStoi == 1) {
-        inputSelectStr.clear();
-        
-        std::cout << terminalformatting::FormTypes::clear;
-
-        ch.checkOpt1();    
-    }
-
-    if(inputSelectStrStoi == 2) {
-        inputSelectStr.clear();
-
-        std::cout << terminalformatting::FormTypes::clear;
-
-        ch.checkOpt2();
-    }
-
-    if(inputSelectStrStoi == 3) {
-        inputSelectStr.clear();
-
-        std::cout << terminalformatting::FormTypes::clear;
-
-        ch.checkOpt3();
-    }
+    //need try... catch statements to handle std::stoi exceptions when it cannot convert to int
+    try {
+        //convert string to int via std::stoi
+        int inputSelectStrStoi = std::stoi(inputSelectStr);
     
-    if(inputSelectStrStoi == 7) {
+        if(inputSelectStrStoi == 1) {
+            inputSelectStr.clear();
+
+            std::cout << terminalformatting::FormTypes::clear;
+
+            ch.checkOpt1();    
+        }
+
+        if(inputSelectStrStoi == 2) {
+            inputSelectStr.clear();
+
+            std::cout << terminalformatting::FormTypes::clear;
+
+            ch.checkOpt2();
+        }
+
+        if(inputSelectStrStoi == 3) {
+            inputSelectStr.clear();
+
+            std::cout << terminalformatting::FormTypes::clear;
+
+            ch.checkOpt3();
+        }
+
+        if(inputSelectStrStoi == 4) {
+            inputSelectStr.clear();
+
+            std::cout << terminalformatting::FormTypes::clear;
+
+            ch.checkOpt4();
+        }
+
+        if(inputSelectStrStoi == 7) {
+            inputSelectStr.clear();
+
+            opt.opt7();
+        }
+    }
+
+    catch(std::invalid_argument &e) {
+        std::cout << terminalformatting::FormTypes::clear;
+
+        std::cout << MiscSelect::selectInvalidStr << '\n';
+
         inputSelectStr.clear();
 
-        opt.opt7();
+        SelectScr::select();
     }
 }
