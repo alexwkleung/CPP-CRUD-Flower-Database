@@ -2,7 +2,6 @@
 #include "options.h"
 #include "terminalformatting.h"
 #include <iostream>
-#include <cstdlib>
 #include <string>
 
 void SelectScr::select() {
